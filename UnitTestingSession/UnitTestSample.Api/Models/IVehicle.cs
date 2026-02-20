@@ -11,4 +11,6 @@ public interface IVehicle
     string LicensePlate { get; }
 
     string @Type { get; }
+    string IssueDescription { get; }
+    EngineType EngineType { get; }
 }

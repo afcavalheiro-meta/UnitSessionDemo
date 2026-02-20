@@ -20,15 +20,19 @@ public abstract class Vehicle : IVehicle
     public string LicensePlate { get; }
 
     public virtual string @Type => GetType().Name;
+    public string IssueDescription { get; }
+
+    public EngineType EngineType { get; protected set; }
 
 
-    public Vehicle(double initialFuel, int maxPassengers, string licensePlate)
+    public Vehicle(double initialFuel, int maxPassengers, string licensePlate, EngineType engineType)
     {
         FuelLevel = initialFuel;
         MaxPassengers = maxPassengers;
         IsRunning = false;
         CurrentPassengers = 0;
         LicensePlate = licensePlate;
+        EngineType = engineType; 
     }
 
     
@@ -80,8 +84,9 @@ public abstract class Vehicle : IVehicle
     }
 
     // Example of fuel usage when running
-    public void ConsumeFuel(double amount)
+    public virtual void ConsumeFuel(double amount)
     {
+
         if (IsRunning && amount > 0)
         {
             FuelLevel -= amount;
@@ -99,7 +104,7 @@ public abstract class Vehicle : IVehicle
 
 public class Motorcycle : Vehicle
 {
-    public Motorcycle(string licensePlate) : base(15, 2, licensePlate)
+    public Motorcycle(string licensePlate, EngineType engineType) : base(15, 2, licensePlate, engineType)
     {
 
     }
@@ -107,7 +112,7 @@ public class Motorcycle : Vehicle
 
 public class Car : Vehicle
 {
-    public Car(string licensePlate) : base(15, 5, licensePlate)
+    public Car(string licensePlate, EngineType engineType) : base(15, 5, licensePlate, engineType)
     {
 
     }
@@ -115,7 +120,7 @@ public class Car : Vehicle
 
 public class Van : Vehicle
 {
-    public Van(string licensePlate) : base(15, 9, licensePlate)
+    public Van(string licensePlate, EngineType engineType) : base(15, 9, licensePlate, engineType)
     {
 
     }
@@ -124,7 +129,12 @@ public class Van : Vehicle
 
 public class Bus : Vehicle
 {
-    public Bus(string licensePlate) : base(15, 50, licensePlate)
+    public Bus(string licensePlate, EngineType engineType) : base(15, 50, licensePlate, engineType)
+    {
+
+    }
+
+    public Bus(string licensePlate) : base(15, 50, licensePlate, EngineType.Diesel)
     {
 
     }

@@ -1,4 +1,8 @@
 <Solution>
-  <Project Path="TestProject1/TestProject1.csproj" />
-  <Project Path="UnitTestSample.Api/UnitTestSample.Api.csproj" Id="b7f76d9f-aa22-4e5f-9d6c-cdfc34054b35" />
+  <Folder Name="/001 - API/">
+    <Project Path="UnitTestSample.Api/UnitTestSample.Api.csproj" Id="b7f76d9f-aa22-4e5f-9d6c-cdfc34054b35" />
+  </Folder>
+  <Folder Name="/002 -Tests/">
+    <Project Path="TestProject1/TestProject1.csproj" />
+  </Folder>
 </Solution>

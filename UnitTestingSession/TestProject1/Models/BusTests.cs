@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using UnitTestSample.Api.Models;
 
-namespace TestProject1;
+namespace TestProject1.Models;
 
 [TestFixture]
 public class BusTests

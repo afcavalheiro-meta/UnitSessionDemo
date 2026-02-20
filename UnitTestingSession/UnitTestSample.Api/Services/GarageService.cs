@@ -46,10 +46,67 @@ public class GarageService : IGarageService
         vehicle.Mileage = 0;
         
     }
+
+
+    private static double _totalHoursToday = 0;
+    private readonly Dictionary<string, int> _visits = new();
+    private readonly Random _random = new();
+
+    public string ProcessVehicle(IVehicle vehicle)
+    {
+        
+        double baseHours = 1;
+
+        
+        if (vehicle.IssueDescription.Contains("engine"))
+        {
+            baseHours += 7;
+        }
+
+        
+        if (vehicle.MaxPassengers > 4)
+        {
+            baseHours += 3;
+        }
+
+        
+        if (vehicle.Type == "Bus")
+        {
+            baseHours += 2;
+        }
+
+        
+        if (vehicle.EngineType == EngineType.Hybrid)
+            baseHours += 1;
+        else
+            baseHours += 0.5;
+            
+        
+
+        // Mutating static state
+        _totalHoursToday += baseHours;
+
+        // Mutating internal state
+        if (_visits.ContainsKey(vehicle.LicensePlate))
+            _visits[vehicle.LicensePlate]++;
+        else
+            _visits[vehicle.LicensePlate] = 1;
+
+        // Side effects
+        Console.WriteLine("Vehicle processed: " + vehicle.LicensePlate);
+        Console.WriteLine("Passengers: " + vehicle.MaxPassengers);
+        Console.WriteLine("Issue: " + vehicle.IssueDescription);
+
+        // Mixing logic + formatting
+        return $"Plate {vehicle.LicensePlate} will take {baseHours} hours. " +
+               $"Total today: {_totalHoursToday}. " +
+               $"Visits: {_visits[vehicle.LicensePlate]}.";
+    }
 }
 
 public interface IGarageService
 {
     IVehicle? GetVehicleByLicensePlate(string licensePlate);
     void ResetMileage(IVehicle vehicle);
+    string ProcessVehicle(IVehicle vehicle);
 }

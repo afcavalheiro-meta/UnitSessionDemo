@@ -18,12 +18,25 @@ namespace UnitTestSample.Api.Controllers
         [HttpGet(Name = "GetVehicleByPlate")]
         public ActionResult<IVehicle> Get(string plate)
         {
-            var vehicle = _garageService.GetVehicleByLicensePlate(plate);
 
-            if(vehicle != null)
-                return Ok(vehicle);
+            try
+            {
+                if (string.IsNullOrEmpty(plate))
+                    return BadRequest("License plate cannot be null or empty.");
 
-            return NotFound();
+
+                var vehicle = _garageService.GetVehicleByLicensePlate(plate);
+
+                if (vehicle != null)
+                    return Ok(vehicle);
+
+                return NotFound();
+
+            }
+            catch (Exception e)
+            {
+                return Problem(e.Message);
+            }
         }
     }
 }

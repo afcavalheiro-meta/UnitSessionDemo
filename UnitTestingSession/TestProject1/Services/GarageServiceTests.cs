@@ -2,7 +2,7 @@
 using UnitTestSample.Api.Models;
 using UnitTestSample.Api.Services;
 
-namespace TestProject1;
+namespace TestProject1.Controllers;
 
 [TestFixture]
 public class GarageServiceTests
